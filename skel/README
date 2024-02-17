@@ -1,0 +1,70 @@
+touch:-functie ce adauga un nou fisier la finalul listei de fisiere,cu un nume dat;
+      -daca lista de fisiere este vida,alocam o celula de tip fisier,verificam alocarea,alocam campurile si construim legaturile;
+      -daca lista nu este vida,cautam fisierul in lista;daca nu il gasim,iteram pana la finalul listei,unde il cream;
+      -alocam campurile si actualizam legaturile;
+
+mkdir:-functie ce adauga un nou director la finalul listei de directoare,cu un nume dat;
+      -daca lista de director este vida,alocam o celula de tip director,verificam alocarea,alocam campurile si construim legaturile;
+      -daca lista nu este vida,cautam directorul in lista;daca nu il gasim,iteram pana la finalul listei,unde il cream;
+      -alocam campurile si actualizam legaturile corespunzator;
+
+ls:-functie ce afiseaza toate directoarele si fisierele dintr-un director;
+   -iteram prin lista de directoare a parintelui si le afisam numele tuturor;
+   -iteram prin lista de fisiere a parintelui si le afisam numele tuturor;
+
+rm:-functie ce elimina un fisier din lista de fisiere;
+   -daca lista de fisiere este vida,afisam mesajul corespunzator;
+   -cautam dupa nume fisierul ce trebuie sters,pastrand si elementul precedent;
+   -daca trebuie sa eliminam primul element dintr-o lista cu doar un element,lista va deveni nula;
+   -daca trebuie sa il eliminam pe primul dintr-o lista cu mai multe elemente,modificam capul listei,actualizam legatura;
+   -eliberam campurile elementului ce trebuie eliberat;
+   -daca elementul este in interiorul listei,actualizam legaturile corespunzator si eliberam campurile;
+   -daca nu exista in lista fisierul cu numele respectiv,afisam mesajul corespunzator;
+
+rmdir:-functie ce elimina un director din lista de directoare;
+      -daca lista de fisiere este vida,afisam mesajul corespunzator;
+      -cautam dupa nume directorul ce trebuie sters,pastrand si elementul precedent;
+      -daca trebuie sa eliminam primul element dintr-o lista cu doar un element,stergem toate fisierele din director cu rm,iar lista va deveni nula;
+      -daca trebuie sa il eliminam pe primul dintr-o lista cu mai multe elemente,stergem toate fisierele din el,modificam capul listei,actualizam legatura;
+      -eliberam campurile elementului ce trebuie eliberat;
+      -daca elementul este in interiorul listei,stergem toate fisierele din el,actualizam legaturile corespunzator si eliberam campurile;
+      -daca nu exista in lista directorul cu numele respectiv,afisam mesajul corespunzator;
+
+cd:-functie ce schimba directorul curent in alt director;
+   -daca primim ".." trebuie sa ne ducem in parinte;
+   -daca suntem deja in home,nu facem nimic;
+   -daca nu suntem,trecem in parinte,schimband pointerii;
+   -daca primim numele directorului in care trebuie sa ajungem,iteram prin lista de directoare;
+   -daca gasim directorul,ne mutam in el,schimband pointerii;
+   -daca nu gasim directorul,afisam mesajul corespunzator;
+
+pwd:-functie ce afiseaza calea din home pana in directorul curent;
+    -am realizat o functie recurenta aici,deoarece am considerat ca fiind cea mai rapida idee;
+    -daca ne aflam in home,il afisam si iesim din recurenta;
+    -reapelam funcita,de aceasta data pentru parinte;
+    -afisam numele directorului in care ne aflam;
+    -practic functia afiseaza numele directorului curent,apoi se apeleaza pwd(parinte),pana se ajunge in home si se incheie executia;
+
+tree:-functie ce afiseaza arborescent ierarhia de directoare si fisiere dintr-un director;
+     -daca directorul nu are alte directoare si este fiu al lui home il afisam;daca are alte fisiere in el si este fiu al lui home,afisam primul fisier din lista;
+     -salvam nivelul curent,la care adunam 1;
+     -afisam spatierea in funcite de nivelul curent;
+     -afisam primul director din lista,aferent nivelului;
+     -reapelam functia,dar crestem nivelul;astfel se vor afisa directoarele corespunzatoare;
+     -afisam iar spatierea in functie de nivel,apoi fisiere corespunzatoare;
+     -functia afiseaza doar un director,nu pe toate din home;in main,vom parcurge lista de directoare si apelam tree pe fiecare;
+
+mv:-functie ce schimba numele fisierului cu altceva;se modifica si structura din lista de fisiere;
+   -cautam in lista de fisiere;daca fisierul cu nume nou este gasit,afisam mesajul corespunzator;
+   -cautam in lista de directoare;daca directorul cu nume nou este gasit,afisam mesajul corespunzator;
+   -cautam in lista de fisiere;daca fisierul cu nume vechi,ce trebuie inlocuit,este gasit,il stergem din lista,apoi cream un nou fisier cu noul nume;
+   -cautam in lista de directoare;daca directorul cu nume vechi,ce trebuie inlocuit,este gasit,il stergem din lista,apoi cream un nou director cu noul nume;
+   -daca nu am gasit fisierul/directorul,de redenumit,in lista afisam mesajul corespunzator;
+
+main:-initializam linia ce va trebui citita si verificam alocarea;
+     -alocam directorul sursa "home" si ii initializam campurile cu NULL;
+     -in do while citim linie cu linie din fisier;
+     -folosind strtok aflam operatia ce trebuie executata si numele fisierului/directorului;
+     -fiind do while prima data operatia va fi NULL,deci o conditionam cu un if;
+     -verificam ce operatie aem si efectuam functia corespunzatoare;
+     -eliberam directorul home si campurile sale aferente;
